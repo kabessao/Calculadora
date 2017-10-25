@@ -13,9 +13,10 @@
     <Border Padding="5">
         <StackPanel>
 
-            <TextBlock Text=""
-                       x:Name="txtTeste"
-                       HorizontalAlignment="Center"/>
+            
+            <!--#region Area de testes-->
+            <StackPanel x:Name="PainelTestes"/>
+            <!--#endregion-->
 
             <!--#region Painel de cima-->
             <StackPanel>

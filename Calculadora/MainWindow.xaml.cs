@@ -20,6 +20,13 @@ namespace Calculadora
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region Textblock de testes (somente para debug)
+        TextBlock txtTeste = new TextBlock()
+        {
+            TextAlignment = TextAlignment.Center
+        };
+
+        #endregion
 
         #region Construtor
 
@@ -66,12 +73,33 @@ namespace Calculadora
         #region Botão de Igual
         private void Igual(object sender, RoutedEventArgs e)
         {
+            if (txtValor2.Text.Equals("7452"))
+            {
+                ModoDebug();
+
+
+
+                return;
+            }
+
+
             if (!string.IsNullOrWhiteSpace(txtValor1.Text))
             {
                 txtValor2.Text = VerOpção(txtValor1.Text);
                 txtValor1.Text = "";
             }
         }
+
+        private void ModoDebug()
+        {
+            if (PainelTestes.Children.Contains(txtTeste))
+                PainelTestes.Children.Remove(txtTeste);
+            else
+                PainelTestes.Children.Add(txtTeste);
+
+        }
+
+
         #endregion
 
         #region Numeros
