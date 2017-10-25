@@ -179,14 +179,23 @@ namespace Calculadora
                 opcao = op.Substring(op.Length - 1);
             
 
-
+            /* caso o tamanho do txtValor1 for menor que 3,
+             * a função retorna zero, encerrando a função.
+             */
             if (txtValor1.Text.Length < 3)
                 return "0";
 
+
+            /* Converte o texto do txtValor1 e txtValor2 para double.
+             */
             double valor1 = double.Parse(txtValor1.Text.ToString().Substring(0, txtValor1.Text.Length - 1)),
                 valor2 = double.Parse(txtValor2.Text);
 
+           
+           
 
+            /* Dependendo da operação descrita na variavel operação 
+             */
             if (opcao.Equals("+"))
             {
                 return $"{valor1 + valor2}";
