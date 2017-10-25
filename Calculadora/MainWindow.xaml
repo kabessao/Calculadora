@@ -51,8 +51,7 @@
 
                 <Button Grid.Column="1"
                         Click="Apagar">
-                    <Image Source="/Images/BackSpace.png"
-                           Margin="5"/>
+                    <Image Source="Images/BackSpace.png"/>
                 </Button>
 
                 <Button Content="±"
