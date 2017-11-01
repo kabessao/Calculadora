@@ -37,7 +37,6 @@ namespace Calculadora
         }
         #endregion
 
-
         #region Operação
         /// <summary>
         /// Pega o texto dentro do botão para saber qual operação matematica usar
@@ -233,22 +232,33 @@ namespace Calculadora
         }
         #endregion
 
-
-
         #region Referencia a todos os textblock do determinado StackPanel.
         private List<TextBlock> AllTextBlock (StackPanel painel) => painel.Children.OfType<TextBlock>().ToList();
         #endregion
 
-
-
         #region Apagar
+
+        /// <summary>
+        /// Apaga apenas um numero da calculadora
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Apagar(object sender, RoutedEventArgs e)
         {
+
+            /* caso txtValor2 estiver vazio e txtValor1 não, 
+             * txtValor2 recebe o valor de txtValor1 e 
+             * txtValor1 é resetado
+             */
             if (txtValor2.Text == "" && txtValor1.Text != "")
             {
                 txtValor2.Text = txtValor1.Text.Remove(txtValor1.Text.Length - 2);
                 txtValor1.Text = "";
             }
+
+            /* Caso txtValor2 não estiver vazio, 
+             * txtValor2 tem seu ultimo caractere removido.
+             */
             else if (txtValor2.Text != "")
             {
                 txtValor2.Text = txtValor2.Text.Substring(0, txtValor2.Text.Length - 1);
@@ -266,16 +276,23 @@ namespace Calculadora
         /// <param name="e"></param>
         private void MaisOuMenos(object sender, RoutedEventArgs e)
         {
-            if (!txtValor2.Text.Equals("0"))
+
+
+            if (!txtValor2.Text.Equals("0")) // zero não pode ser negativo
+                /* Se não tiver o sinal de negativo, ou seja, for igual a -1,
+                 * o sinal é adicionado.
+                 */
                 if (txtValor2.Text.IndexOf('-') == -1)
                 {
                     txtValor2.Text = "-" + txtValor2.Text;
                 }
+                /* Se existir o sinal de negativo, ou seja, for maior que -1,
+                 * o sinal é removido.
+                 */
                 else if (txtValor2.Text.IndexOf('-') > -1)
                 {
                     txtValor2.Text = txtValor2.Text.Substring(1);
                 }
-            //mais ou menos
         }
         #endregion
 
@@ -288,12 +305,15 @@ namespace Calculadora
         /// <param name="e"></param>
         private void Ponto(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtValor2.Text))
+            if (string.IsNullOrWhiteSpace(txtValor2.Text)) // Não pode ter ponto atras dos numeros
                 return;
 
-            if (txtValor2.Text.IndexOf('.') == -1)
+            /* Caso não tiver o ponto, ou seja, for igual a -1 ,
+             * o ponto é adicionado.
+             */
+            if (txtValor2.Text.IndexOf('.') == -1) // Não pode ter mais de um ponto
                 txtValor2.Text += ".";
-            //ponto
+            
         }
         #endregion
 
@@ -305,52 +325,69 @@ namespace Calculadora
         /// <param name="e"></param>
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
+            
+
+
+            //////  txtblock de testes. ///////
             txtTeste.Text = e.Key.ToString();
+            ///////////////////////////////////
+
+
+
+            // Quebra a string em uma array e pega o ultimo valor.
             char eChar = e.Key.ToString().ToCharArray()[e.Key.ToString().Length - 1];
 
+
+            // Filtro gigante que deve ser mais facill!!!
+            // Basicamente ele testa pra ver se a tecla esta entre D0 e D9
+            // ou entre NumPad0 e NumPad9
             if ((char.IsDigit(eChar)) &&
                 (e.Key.ToString().Substring(0, e.Key.ToString().Length - 1) == "NumPad" ||
                 e.Key.ToString().Substring(0, 1) == "D" && e.Key.ToString().Length == 2))
             {
+
                 if (txtValor2.Text.Length != 25)
                 {
                     AdicionarNumero(eChar.ToString());
                 }
             }
+            
+
+            // Testa outras teclas
             else
             {
-                txtTeste.Text = e.Key.ToString();
-                if (e.Key == Key.Back)
+               
+                if (e.Key == Key.Back) // Botão BackSpace
                 {
                     Apagar(null, null);
                     return;
                 }
-                if (e.Key == Key.Multiply)
+                if (e.Key == Key.Multiply) // Botão de Vezes
                 {
                     FiltroOperacao("x");
                     return;
                 }
-                if (e.Key == Key.OemPlus || e.Key == Key.Add)
+                if (e.Key == Key.OemPlus || e.Key == Key.Add) // Botão de Adição, tanto do teclado quanto do numpad
                 {
                     FiltroOperacao("+");
                     return;
                 }
-                if (e.Key == Key.Subtract || e.Key == Key.OemMinus)
+                if (e.Key == Key.Subtract || e.Key == Key.OemMinus) // Botão de Subtração, tanto do teclado quanto do numpad
                 {
                     FiltroOperacao("-");
                     return;
                 }
-                if (e.Key == Key.Divide || e.Key == Key.AbntC1)
+                if (e.Key == Key.Divide || e.Key == Key.AbntC1) // Botão de Barra padrão Linux, ou botão de Multiplicação
                 {
                     FiltroOperacao("/");
                     return;
                 }
-                if (e.Key == Key.AbntC2 || e.Key == Key.OemPeriod)
+                if (e.Key == Key.AbntC2 || e.Key == Key.OemPeriod) // Botão de Ponto, tanto do teclado quanto do numpad
                 {
                     Ponto(null, null);
                     return;
                 }
-                if (e.Key == Key.Enter)
+                if (e.Key == Key.Enter) // Botão do Enter
                 {
                     Igual(null, null);
                     return;
