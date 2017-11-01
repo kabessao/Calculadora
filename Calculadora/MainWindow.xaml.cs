@@ -229,9 +229,17 @@ namespace Calculadora
         /// <param name="e"></param>
         private void LimparTudo(object sender, RoutedEventArgs e)
         {
-            Resultado.Children.OfType<TextBlock>().ToList().ForEach(x => x.Text = "");
+            AllTextBlock(Resultado).ForEach(x => x.Text = "");
         }
         #endregion
+
+
+
+        #region Referencia a todos os textblock do determinado StackPanel.
+        private List<TextBlock> AllTextBlock (StackPanel painel) => painel.Children.OfType<TextBlock>().ToList();
+        #endregion
+
+
 
         #region Apagar
         private void Apagar(object sender, RoutedEventArgs e)
