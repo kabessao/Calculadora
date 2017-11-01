@@ -229,9 +229,7 @@ namespace Calculadora
         /// <param name="e"></param>
         private void LimparTudo(object sender, RoutedEventArgs e)
         {
-            txtValor1.Text = "";
-            txtValor2.Text = "0";
-            //limpar tudo
+            Resultado.Children.OfType<TextBlock>().ToList().ForEach(x => x.Text = "");
         }
         #endregion
 

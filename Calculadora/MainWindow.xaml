@@ -19,7 +19,7 @@
             <!--#endregion-->
 
             <!--#region Painel de cima-->
-            <StackPanel>
+            <StackPanel x:Name="Resultado">
                 <TextBlock x:Name="txtValor1"
                            HorizontalAlignment="Right"/>
                 <TextBlock x:Name="txtValor2"
