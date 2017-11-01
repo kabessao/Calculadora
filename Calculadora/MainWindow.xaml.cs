@@ -25,10 +25,8 @@ namespace Calculadora
     public partial class MainWindow : Window
     {
 
-
-
         #region Limite de caractere
-        private int _limite;
+        private int _limite = 20;
         #endregion
 
         #region Textblock de testes (somente para debug)
@@ -407,5 +405,65 @@ namespace Calculadora
             }
         }
         #endregion
+
+        #region Memoria 
+
+        private delegate int teste();
+
+
+        private List<string> _memoria = new List<string>();
+        private double _memAtual = 0;
+
+        #region Display de memoria
+        public string memoria
+        {
+            get { return $"{_memAtual}"; }
+            set
+            {
+                txtMemoria.Text = value;
+
+                if (value.Substring(value.Length - 3) != "...")
+                    _memAtual = double.Parse(value.Substring(0, value.Length - 3));
+                else
+                    _memAtual = double.Parse(value);
+            }
+        }
+
+        #endregion
+
+
+        #region Salvar na memoria
+        private void Salvar(object sender, RoutedEventArgs e)
+        {
+            _memoria.Add(txtValor2.Text);
+
+            double.TryParse(txtValor2.Text, out _memAtual);
+
+            if (txtValor2.Text.Length > 4)
+                memoria = txtValor2.Text.Substring(0, 4) + "...";
+            else
+                memoria = txtValor2.Text;
+
+        }
+        #endregion
+
+        #region Somar na memoria
+        private void SomarMemoria(object sender, RoutedEventArgs e)
+        {
+            _memAtual += double.Parse(txtValor2.Text);
+        }
+        #endregion
+
+        #region Subtrair da memoria
+        private void SubtrairMemoria(object sender, RoutedEventArgs e)
+        {
+            _memAtual -= double.Parse(txtValor2.Text);
+        }
+        #endregion
+
+
+
+        #endregion
+
     }
 }
