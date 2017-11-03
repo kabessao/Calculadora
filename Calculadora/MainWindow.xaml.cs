@@ -1,4 +1,5 @@
-﻿using System;
+﻿#region bibliotecas
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+#endregion
+
+
 
 namespace Calculadora
 {
@@ -20,6 +24,11 @@ namespace Calculadora
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        #region Limite de caractere
+        private int _limite = 20;
+        #endregion
+
         #region Textblock de testes (somente para debug)
         TextBlock txtTeste = new TextBlock()
         {
@@ -135,7 +144,7 @@ namespace Calculadora
         private void Numero(object sender, RoutedEventArgs e)
         {
             // Limita quantos caracteres pode ter
-            if (txtValor2.Text.Length == 25)
+            if (txtValor2.Text.Length == _limite)
                 return;
 
 
@@ -346,7 +355,7 @@ namespace Calculadora
                 e.Key.ToString().Substring(0, 1) == "D" && e.Key.ToString().Length == 2))
             {
 
-                if (txtValor2.Text.Length != 25)
+                if (txtValor2.Text.Length != _limite) // Limite de caractere
                 {
                     AdicionarNumero(eChar.ToString());
                 }
@@ -396,5 +405,65 @@ namespace Calculadora
             }
         }
         #endregion
+
+        #region Memoria 
+
+        private delegate int teste();
+
+
+        private List<string> _memoria = new List<string>();
+        private double _memAtual = 0;
+
+        #region Display de memoria
+        public string memoria
+        {
+            get { return $"{_memAtual}"; }
+            set
+            {
+                txtMemoria.Text = value;
+
+                if (value.Substring(value.Length - 3) != "...")
+                    _memAtual = double.Parse(value.Substring(0, value.Length - 3));
+                else
+                    _memAtual = double.Parse(value);
+            }
+        }
+
+        #endregion
+
+
+        #region Salvar na memoria
+        private void Salvar(object sender, RoutedEventArgs e)
+        {
+            _memoria.Add(txtValor2.Text);
+
+            double.TryParse(txtValor2.Text, out _memAtual);
+
+            if (txtValor2.Text.Length > 4)
+                memoria = txtValor2.Text.Substring(0, 4) + "...";
+            else
+                memoria = txtValor2.Text;
+
+        }
+        #endregion
+
+        #region Somar na memoria
+        private void SomarMemoria(object sender, RoutedEventArgs e)
+        {
+            _memAtual += double.Parse(txtValor2.Text);
+        }
+        #endregion
+
+        #region Subtrair da memoria
+        private void SubtrairMemoria(object sender, RoutedEventArgs e)
+        {
+            _memAtual -= double.Parse(txtValor2.Text);
+        }
+        #endregion
+
+
+
+        #endregion
+
     }
 }

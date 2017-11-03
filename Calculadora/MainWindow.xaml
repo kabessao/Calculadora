@@ -20,13 +20,53 @@
 
             <!--#region Painel de cima-->
             <StackPanel x:Name="Resultado">
-                <TextBlock x:Name="txtValor1"
+                <Grid>
+                    <TextBlock x:Name="txtValor1"
                            HorizontalAlignment="Right"/>
+                    
+                    <TextBlock x:Name="txtMemoria"
+                               HorizontalAlignment="Left"/>
+                </Grid>
                 <TextBlock x:Name="txtValor2"
                            HorizontalAlignment="Right"
                            Text="0"/>
 
             </StackPanel>
+            <!--#endregion-->
+            
+            <!--#region parte de memoria-->
+            <Grid Margin="1 0 0 1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Margin" Value="1 0"/>
+                    </Style>
+                </Grid.Resources>
+
+                <Button Grid.Column="0">MC</Button>
+                
+                <Button Grid.Column="1">MR</Button>
+                
+                <Button Grid.Column="2"
+                        Click="SomarMemoria">M+</Button>
+                
+                <Button Grid.Column="3">M-</Button>
+                
+                <Button Grid.Column="4" 
+                        Click="Salvar">MS</Button>
+                
+                <Button Grid.Column="5">M</Button>
+                
+                
+            </Grid>
+            
             <!--#endregion-->
 
             <!--#region botões da parte de cima-->
