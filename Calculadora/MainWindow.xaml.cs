@@ -1,5 +1,4 @@
-﻿#region bibliotecas
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,9 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-#endregion
-
-
 
 namespace Calculadora
 {
@@ -24,13 +20,6 @@ namespace Calculadora
     /// </summary>
     public partial class MainWindow : Window
     {
-
-
-
-        #region Limite de caractere
-        private int _limite;
-        #endregion
-
         #region Textblock de testes (somente para debug)
         TextBlock txtTeste = new TextBlock()
         {
@@ -146,7 +135,7 @@ namespace Calculadora
         private void Numero(object sender, RoutedEventArgs e)
         {
             // Limita quantos caracteres pode ter
-            if (txtValor2.Text.Length == _limite)
+            if (txtValor2.Text.Length == 25)
                 return;
 
 
@@ -357,7 +346,7 @@ namespace Calculadora
                 e.Key.ToString().Substring(0, 1) == "D" && e.Key.ToString().Length == 2))
             {
 
-                if (txtValor2.Text.Length != _limite) // Limite de caractere
+                if (txtValor2.Text.Length != 25)
                 {
                     AdicionarNumero(eChar.ToString());
                 }
