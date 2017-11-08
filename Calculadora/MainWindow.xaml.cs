@@ -347,13 +347,12 @@ namespace Calculadora
             char eChar = e.Key.ToString().ToCharArray()[e.Key.ToString().Length - 1];
 
 
-            // Filtro gigante que deve ser mais facill!!!
-            // Basicamente ele testa pra ver se a tecla esta entre D0 e D9
-            // ou entre NumPad0 e NumPad9
+            /* Filtro para pegar apenas teclas de numeros do teclado
+             */
             if ((char.IsDigit(eChar)) &&
-                (e.Key.ToString().Substring(0, e.Key.ToString().Length - 1) == "NumPad" ||
-                e.Key.ToString().Substring(0, 1) == "D" && e.Key.ToString().Length == 2))
-            {
+                ((e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || 
+                (e.Key >= Key.D0 && e.Key <= Key.D9)))
+                {
 
                 if (txtValor2.Text.Length != _limite) // Limite de caractere
                 {
@@ -407,12 +406,16 @@ namespace Calculadora
         #endregion
 
         #region Memoria 
+        
 
-        private delegate int teste();
 
+
+        #region Variavel de memoria privada
 
         private List<string> _memoria = new List<string>();
         private double _memAtual = 0;
+
+        #endregion
 
         #region Display de memoria
         public string memoria
@@ -430,7 +433,6 @@ namespace Calculadora
         }
 
         #endregion
-
 
         #region Salvar na memoria
         private void Salvar(object sender, RoutedEventArgs e)
@@ -460,6 +462,7 @@ namespace Calculadora
             _memAtual -= double.Parse(txtValor2.Text);
         }
         #endregion
+
 
 
 
