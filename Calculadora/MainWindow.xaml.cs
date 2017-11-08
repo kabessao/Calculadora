@@ -418,19 +418,38 @@ namespace Calculadora
         #endregion
 
         #region Display de memoria
-        public string memoria
+
+        public string MemoriaString
         {
             get { return $"{_memAtual}"; }
             set
             {
-                txtMemoria.Text = value;
+                _memAtual = double.Parse(value);
 
-                if (value.Substring(value.Length - 3) != "...")
-                    _memAtual = double.Parse(value.Substring(0, value.Length - 3));
+                if (value != "0")
+                    if (value.Length > 4)
+                        txtMemoria.Text = value.Substring(0, 4) + "...";
+                    else
+                        txtMemoria.Text = value;
                 else
-                    _memAtual = double.Parse(value);
+                    txtMemoria.Text = "";
             }
         }
+
+        public double MemoriaDouble {
+            get
+            {
+                return _memAtual;
+
+            }
+            set
+            {
+                _memAtual = value;
+
+                MemoriaString = $"{value}";
+            }
+        }
+
 
         #endregion
 
@@ -441,29 +460,49 @@ namespace Calculadora
 
             double.TryParse(txtValor2.Text, out _memAtual);
 
-            if (txtValor2.Text.Length > 4)
-                memoria = txtValor2.Text.Substring(0, 4) + "...";
-            else
-                memoria = txtValor2.Text;
+           
+                MemoriaString = txtValor2.Text;
 
         }
+
         #endregion
 
         #region Somar na memoria
         private void SomarMemoria(object sender, RoutedEventArgs e)
         {
-            _memAtual += double.Parse(txtValor2.Text);
+            MemoriaDouble += double.Parse(txtValor2.Text);
         }
         #endregion
 
         #region Subtrair da memoria
         private void SubtrairMemoria(object sender, RoutedEventArgs e)
         {
-            _memAtual -= double.Parse(txtValor2.Text);
+            MemoriaDouble -= double.Parse(txtValor2.Text);
         }
+
+
+
         #endregion
 
+        #region Retornar memoria
 
+        private void RetornarMemoria(object sender, RoutedEventArgs e)
+        {
+            txtValor2.Text = MemoriaString;
+        }
+
+
+
+        #endregion
+
+        #region Apagar memoria
+
+        private void ApagarMemoria(object sender, RoutedEventArgs e)
+        {
+            MemoriaDouble = 0;
+        }
+
+        #endregion
 
 
         #endregion
