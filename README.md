@@ -7,7 +7,7 @@ Lembrando que, a complexidade deste projeto não esta sendo exigida. Estou aplic
   
   
 <h2>Downloads</h2>
-<a href="https://github.com/kabessao/Calculadora/releases/download/v0.0.2/calculadora.exe"> versão 0.0.0.2</a>
+<a href="https://github.com/kabessao/Calculadora/releases/download/v0.0.2/calculadora.exe"> v0.0.2</a>
 
 
 <h3>Contatos</h3>
