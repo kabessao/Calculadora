@@ -13,6 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
+
+
 #endregion
 
 
@@ -43,6 +46,7 @@ namespace Calculadora
         public MainWindow()
         {
             InitializeComponent();
+            
         }
         #endregion
 
@@ -412,8 +416,10 @@ namespace Calculadora
 
         #region Variavel de memoria privada
 
-        private List<string> _memoria = new List<string>();
+        private List<double> _memoria = new List<double>();
         private double _memAtual = 0;
+        
+
 
         #endregion
 
@@ -440,28 +446,23 @@ namespace Calculadora
             get
             {
                 return _memAtual;
-
+                
             }
             set
             {
+                _memoria.Add(value);  
                 _memAtual = value;
 
                 MemoriaString = $"{value}";
             }
         }
 
-
         #endregion
 
         #region Salvar na memoria
         private void Salvar(object sender, RoutedEventArgs e)
         {
-            _memoria.Add(txtValor2.Text);
-
-            double.TryParse(txtValor2.Text, out _memAtual);
-
-           
-                MemoriaString = txtValor2.Text;
+            MemoriaString = txtValor2.Text;
 
         }
 
@@ -502,8 +503,32 @@ namespace Calculadora
             MemoriaDouble = 0;
         }
 
+
         #endregion
 
+        #region Mostrar historico da memoria
+
+        private void MostrarMemoria(object sender, RoutedEventArgs e)
+        {
+            var teste = _memoria;
+            LstLista.ItemsSource = teste;
+            Pop.IsOpen = !Pop.IsOpen;
+        }
+
+        #endregion
+
+        #region Item Selecionado
+
+        private void ItemSelecionado(object sender, SelectionChangedEventArgs e)
+        {
+            MemoriaString = LstLista.SelectedItem.ToString();
+            _memoria.Clear();
+        }
+
+
+
+
+        #endregion
 
         #endregion
 

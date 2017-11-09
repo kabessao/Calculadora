@@ -12,7 +12,6 @@
 
     <Border Padding="5">
         <StackPanel>
-
             
             <!--#region Area de testes-->
             <StackPanel x:Name="PainelTestes"/>
@@ -64,8 +63,24 @@
                 
                 <Button Grid.Column="4" 
                         Click="Salvar">MS</Button>
-                
-                <Button Grid.Column="5">M</Button>
+
+                <Button Grid.Column="5"
+                        Click="MostrarMemoria">
+                    <StackPanel>
+                        <TextBlock>M</TextBlock>
+                        <Popup x:Name="Pop" 
+                               PopupAnimation="Scroll"
+                               >
+                            <StackPanel>
+                                <ScrollViewer Height="150">
+                                    <ListView x:Name="LstLista"
+                                          SelectionChanged="ItemSelecionado"/>
+                                </ScrollViewer>
+                            </StackPanel>
+                        </Popup>
+                        
+                    </StackPanel>
+                </Button>
                 
                 
             </Grid>
@@ -234,6 +249,8 @@
 
             </Grid>
             <!--#endregion-->
+            
+
 
 
         </StackPanel>
